@@ -2,7 +2,7 @@
 /**
 * controller that handles main pages like login/register/index/404
 */
-class MainController
+class ImportController
 {
 	
 	public static function homePage(){

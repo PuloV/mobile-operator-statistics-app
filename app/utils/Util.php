@@ -18,14 +18,14 @@ class Util {
             
         }
         //dump the content
-        echo print_r($var,true);
+        fCore::expose($var);
         
         //trace the function
         if ($with_trace) {
             
-            echo "<h4><pre>";
-            debug_print_backtrace();
-            echo "</pre></h4>";
+            echo "<h4>";
+            fCore::expose(fCore::backtrace(1));
+            echo "</h4>";
             
         }
         
