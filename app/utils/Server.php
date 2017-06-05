@@ -43,10 +43,11 @@ class Server {
 	}
 
 	public function defineGeneralConstants(){		
-		error_reporting(E_ERROR);
+		// error_reporting(E_ERROR | E_PARSE);
+		error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 		// server settings
-		define('ROOTDIR', $this->getRoot());
+		define('ROOTDIR', sprintf('%s/',$this->getRoot()));
 		define('TEMPLATES', sprintf('%s/frontend/templates/', ROOTDIR));
 
 		// database settings
@@ -71,7 +72,7 @@ class Server {
 		$router->setBasePath('/personal-projects/mobile-operator-statistics-app/');
 
 		$router->map('GET|POST', '', 'MainController::homePage', 'MainController::homePage');
-		$router->map('GET|POST', '', 'ImportController::importPersonalUsage', 'ImportController::importPersonalUsage');
+		$router->map('GET|POST', 'import/personal_usage/[*:month]', 'ImportController::importPersonalUsage', 'ImportController::importPersonalUsage');
 
 		$matching = $router->match();
 

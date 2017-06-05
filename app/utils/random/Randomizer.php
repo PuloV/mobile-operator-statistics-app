@@ -5,14 +5,17 @@
 class Randomizer {
 	protected $_probable;
 	protected $_with_removing;
-	function __construct(array $probable, bool $with_removing = true){
+	function __construct(array $probable, $with_removing = true ){		
 		$this->_probable = $probable;
 		$this->_with_removing = $with_removing;
 	}
 
-	public function shuffle(int $times=2){
+	public function shuffle($times = 2){
 		while ($times > 0) {
-			$this->_probable = shuffle($this->_probable);
+			$data = $this->_probable;
+			shuffle($data);
+			$this->_probable = $data;
+			$times -= 1;
 		}
 	}
 
@@ -39,4 +42,5 @@ class Randomizer {
 
 		return $value;
 	}
+
 }
