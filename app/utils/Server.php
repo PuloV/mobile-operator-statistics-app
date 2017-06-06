@@ -45,6 +45,7 @@ class Server {
 	public function defineGeneralConstants(){		
 		// error_reporting(E_ERROR | E_PARSE);
 		error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+		session_start();
 
 		// server settings
 		define('ROOTDIR', sprintf('%s/',$this->getRoot()));
@@ -110,6 +111,21 @@ class Server {
 		$mysql_db->connect();
 
 		$this->_db = $mysql_db;
+
+		fORMDatabase::attach($mysql_db);
+
+	}
+
+	public static function requireModel($table){
+		switch ($table) {
+			case 'personal_usage':
+				require_once 'app/models/PersonalUsage.php';
+				break;
+			
+			default:
+				# code...
+				break;
+		}
 	}
 
 }
