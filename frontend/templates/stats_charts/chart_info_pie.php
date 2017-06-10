@@ -2,6 +2,8 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function(){
+  /* 
+    DEFAULT STRUCTURE SHOULD BE
   var dataPie = [
       { label: "16-20", color:'#8C54CA', data: 210},
       { label: "20-30", color:'#7C34CF', data: 190},
@@ -9,8 +11,15 @@ jQuery(document).ready(function(){
       { label: "40-65", color:'#58B2F4', data: 100},
       { label: "65+", color:'#BBE0E9', data: 50}
   ];
+  */
+ var pieChartData = JSON.parse('{{pie_data_json}}').map(function(item) {
+    var parsedValue = item;
+    parsedValue.data = parseInt(item.data);
+    return parsedValue;
+  })
   
-  $.plot('#infoPieChart{{scope}}', dataPie, {
+  var dataPie = JSON
+  $.plot('#infoPieChart{{scope}}', pieChartData, {
       series: {
           pie: {
               show: true

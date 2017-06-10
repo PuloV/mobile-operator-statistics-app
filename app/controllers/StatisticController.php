@@ -29,7 +29,7 @@ class StatisticController{
 		$statistics = self::generateStatisticsForFrame($frame);
 		
 		$data['mobile_operator_chart'] 	= ChartUtil::getChart('mobile_operator_chart', $statistics['operator_grouped']);
-		$data['age_group_chart'] 		= ChartUtil::getChart('age_group_chart', $statistics['date_grouped']);
+		$data['age_group_chart'] 		= ChartUtil::getChart('age_group_chart', $statistics['age_grouped']);
 		$data['gender_group_chart'] 	= ChartUtil::getChart('gender_group_chart', $statistics['gender_grouped']);
 
 
@@ -84,9 +84,28 @@ class StatisticController{
 			$from_date->format("Y-m-d 00:00:00"),
 			$to_date->format("Y-m-d 23:59:59")
 		);
+		
+		$age_grouped = SqlClient::getRecords(
+			'SELECT 
+			CASE  
+				WHEN personal_usage.age BETWEEN 16 AND 20 THEN \'16-20\' 
+				WHEN personal_usage.age BETWEEN 20 AND 30 THEN \'20-30\' 
+				WHEN personal_usage.age BETWEEN 30 AND 40 THEN \'30-40\' 
+				WHEN personal_usage.age BETWEEN 40 AND 65 THEN \'40-65\' 
+				WHEN personal_usage.age > 65 THEN \'65+\' 
+				ELSE \'unknown\'
+				END	AS `age_group`  , 
+			COUNT(personal_usage.id) AS people
+			FROM personal_usage			
+			WHERE personal_usage.respondent_date BETWEEN %s AND %s
+			GROUP BY `age_group`',
+			$from_date->format("Y-m-d 00:00:00"),
+			$to_date->format("Y-m-d 23:59:59")
+		);
 
 		$data['gender_grouped'] 		= $gender_grouped;
 		$data['operator_grouped'] 		= $operator_grouped;
+		$data['age_grouped'] 			= $age_grouped;
 
 		return $data;
 	}

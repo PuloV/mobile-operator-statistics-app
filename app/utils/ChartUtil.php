@@ -137,6 +137,65 @@ class ChartUtil {
                 $chart_data['pie_data_json'] = json_encode($area_data);
                 $chart_data['modal_header']  = 'Mobile Operator Users';
                 break;
+
+
+            case 'age_group_chart':
+                $total_users = array_reduce(
+                    $data, 
+                    function($total, $item){
+                        return $total + $item['people'];
+                    },
+                    0
+                );
+
+                $area_data = array_map( 
+                    function($entry) use ($total_users) {
+                        $entry_data             = array();
+
+                        $people_count           = $entry['people'];
+                        $percent_value          = $people_count * 100 / $total_users;
+                        
+                        $entry_data['data']    = round($percent_value, 2);
+
+                        switch ($entry['age_group']) {
+                            case '16-20':
+                                $entry_data['label'] = $entry['age_group'];
+                                $entry_data['color'] = '#8C54CA';
+                                break;
+
+                            case '20-30':
+                                $entry_data['label'] = $entry['age_group'];
+                                $entry_data['color'] = '#7C34CF';
+                                break;
+                            
+                            case '30-40':
+                                $entry_data['label'] = $entry['age_group'];
+                                $entry_data['color'] = '#6C24CA';
+                                break;
+
+                            case '40-65':
+                                $entry_data['label'] = $entry['age_group'];
+                                $entry_data['color'] = '#58B2F4';
+                                break;
+                            
+                            case '65+':
+                                $entry_data['label'] = $entry['age_group'];
+                                $entry_data['color'] = '#BBE0E9';
+                                break;
+                            
+                            default:
+                                $entry_data['label'] = 'Unknown';
+                                $entry_data['color'] = '#FF0000';
+                                break;
+                        }
+
+                        return $entry_data;
+                    },
+                    $data
+                );
+                
+                $chart_data['pie_data_json'] = json_encode($area_data);
+                break;
             
             default:
                 # code...
