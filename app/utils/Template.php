@@ -76,6 +76,7 @@ class Template {
             'chart_pie'    => TEMPLATES . 'stats_charts/chart_pie.php',
             'chart_label_pie'    => TEMPLATES . 'stats_charts/chart_label_pie.php',
             'chart_info_pie'    => TEMPLATES . 'stats_charts/chart_info_pie.php',
+            'chart_graph'    => TEMPLATES . 'stats_charts/chart_graph.php',
         );
 
     }

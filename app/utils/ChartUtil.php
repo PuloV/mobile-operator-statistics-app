@@ -29,6 +29,13 @@ class ChartUtil {
             case 'month_respondend_area':
                 $template = 'chart_area';
                 break;
+
+            case 'minutes_chart_graph':
+            case 'megabytes_chart_graph':
+            case 'sms_chart_graph':
+            case 'tax_chart_graph':
+                $template = 'chart_graph';
+                break;
             
             default:
                 $template = $type;
@@ -196,6 +203,41 @@ class ChartUtil {
                 
                 $chart_data['pie_data_json'] = json_encode($area_data);
                 break;
+
+                case 'minutes_chart_graph':
+                case 'megabytes_chart_graph':
+                case 'sms_chart_graph':
+                case 'tax_chart_graph':
+                
+                    switch ($template) {
+                        case 'minutes_chart_graph':
+                            $chart_key = 'average_mins';
+                            break;
+
+                        case 'megabytes_chart_graph':
+                            $chart_key = 'average_mb';
+                            break;
+
+                        case 'sms_chart_graph':
+                            $chart_key = 'average_sms';
+                            break;
+
+                        case 'tax_chart_graph':
+                            $chart_key = 'average_tax';
+                            break;
+                    }
+
+                    $labels     = array();
+                    $values     = array();
+
+                    foreach ($data as $key => $value) {
+                        $labels[] = $value['age_group'];
+                        $values[] = $value[$chart_key];
+                    }
+
+                    $chart_data['labels_json'] = json_encode($labels);
+                    $chart_data['values_json'] = json_encode($values);
+                    break;
             
             default:
                 # code...
