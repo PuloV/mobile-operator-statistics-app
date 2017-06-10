@@ -49,7 +49,7 @@ class Server {
 
 		// server settings
 		define('ROOTDIR', sprintf('%s/',$this->getRoot()));
-		define('TEMPLATES', sprintf('%s/frontend/templates/', ROOTDIR));
+		define('TEMPLATES', sprintf('%sfrontend/templates/', ROOTDIR));
 
 		// database settings
 		define('DB_NAME', 'mo_statistics');

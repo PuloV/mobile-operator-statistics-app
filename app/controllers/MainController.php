@@ -2,11 +2,11 @@
 /**
 * controller that handles main pages like login/register/index/404
 */
-class MainController
-{
+class MainController{
 	
 	public static function homePage(){
-		Util::dump(Server::getInstance()->getDb(), TITLE);
+
+		echo Template::get('main_stats');
 		
 	}
 }
