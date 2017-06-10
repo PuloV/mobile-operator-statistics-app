@@ -6,7 +6,8 @@ class ImportController
 {
 	
 	public static function importPersonalUsage($month = NULL){
-		if ($start_of_month > time()) {
+		$month_timestamp = new fTimestamp($start_of_month."-01");
+		if ($month_timestamp > time()) {
 			die("future");
 		}
 		// $_SESSION = array();
@@ -24,6 +25,7 @@ class ImportController
 			$dates[] = $current_date->format('Y-m-d H:i:s');
 			$current_date->modify("+1 day");
 		}
+
 
 		require_once 'app/utils/random/AgeRandomizer.php';
 		require_once 'app/utils/random/TaxRandomizer.php';
@@ -54,7 +56,7 @@ class ImportController
 			$current_count  = $_SESSION[$month_key]['current_count'];
 			$_SESSION[$month_key]['current_count']  = $current_count + 1;
 		}
-
+		// die(1);
 		for ($i=0; $i < 50; $i++) { 
 
 			$name 				= sprintf("Анонимен %d", 50 * $current_count + $i);
@@ -67,7 +69,7 @@ class ImportController
 			$mobile_operator 	= $mobile_operators->getValue();
 
 			shuffle($dates);
-			$date 		= $dates[0];
+			$date 		= new fTimestamp($dates[0]);
 
 			try {				
 				$personal_usage = new PersonalUsage();
@@ -79,7 +81,7 @@ class ImportController
 				$personal_usage->setMinutes($minutes);
 				$personal_usage->setSmsCount($sms);
 				$personal_usage->setMegabytes($megabyte);
-				$personal_usage->setDate($date);
+				$personal_usage->setRespondentDate($date);
 				$personal_usage->store();
 			} catch (Exception $e) {
 				Util::dump($e->getMessage(), ERRPR);				

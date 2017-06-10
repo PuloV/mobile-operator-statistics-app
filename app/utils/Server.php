@@ -38,6 +38,8 @@ class Server {
 			$this->initializeDatabase();
 			$this->matchAndExecutePath();
 		} catch (Exception $e) {
+			Util::dump($e->getTraceAsString(), $e->getMessage());
+
 			echo Template::get('error_500');
 		}
 	}
@@ -50,7 +52,7 @@ class Server {
 		// server settings
 		define('ROOTDIR', sprintf('%s/',$this->getRoot()));
 		define('TEMPLATES', sprintf('%sfrontend/templates/', ROOTDIR));
-
+		define('PATH_APP', '/personal-projects/mobile-operator-statistics-app/');
 		// database settings
 		define('DB_NAME', 'mo_statistics');
 		define('DB_USER', 'root');
@@ -60,7 +62,9 @@ class Server {
 
 	public function requireServerFiles(){
 		require_once 'app/libs/altoRouter/AltoRouter.php';
+		require_once 'app/utils/SqlClient.php';
 		require_once 'app/utils/Util.php';
+		require_once 'app/utils/ChartUtil.php';
 		require_once 'app/utils/Template.php';
 
 		require_once 'app/libs/flourishlib/fLoader.php';
@@ -70,10 +74,11 @@ class Server {
 
 		$router = new AltoRouter();
 
-		$router->setBasePath('/personal-projects/mobile-operator-statistics-app/');
+		$router->setBasePath(PATH_APP);
 
 		$router->map('GET|POST', '', 'MainController::homePage', 'MainController::homePage');
 		$router->map('GET|POST', 'import/personal_usage/[*:month]', 'ImportController::importPersonalUsage', 'ImportController::importPersonalUsage');
+		$router->map('GET|POST', 'statistic/[*:frame]', 'StatisticController::statisticFrame', 'StatisticController::statisticFrame');
 
 		$matching = $router->match();
 

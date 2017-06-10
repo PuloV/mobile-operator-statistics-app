@@ -10,23 +10,23 @@
     <title>Mobile Operator Usage Statistics</title>
  
     <!-- start: Css -->
-    <link rel="stylesheet" type="text/css" href="frontend/asset/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/bootstrap.min.css">
 
     
     <!-- start: js -->
-    <script src="frontend/asset/js/jquery.min.js"></script>
-    <script src="frontend/asset/js/jquery.ui.min.js"></script>
-    <script src="frontend/asset/js/bootstrap.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/jquery.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/jquery.ui.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/bootstrap.min.js"></script>
 
     <!-- plugins -->
-    <link rel="stylesheet" type="text/css" href="frontend/asset/css/plugins/font-awesome.min.css"/>
-    <link rel="stylesheet" type="text/css" href="frontend/asset/css/plugins/simple-line-icons.css"/>
-    <link rel="stylesheet" type="text/css" href="frontend/asset/css/plugins/animate.min.css"/>
-    <link rel="stylesheet" type="text/css" href="frontend/asset/css/plugins/fullcalendar.min.css"/>
-  	<link href="frontend/asset/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/simple-line-icons.css"/>
+    <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/animate.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/fullcalendar.min.css"/>
+  	<link href="{{PATH_APP}}frontend/asset/css/style.css" rel="stylesheet">
   	<!-- end: Css -->
 
-  	<link rel="shortcut icon" href="frontend/asset/img/logomi.png">
+  	<link rel="shortcut icon" href="{{PATH_APP}}frontend/asset/img/logomi.png">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

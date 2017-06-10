@@ -14,9 +14,9 @@
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                       </a>
                       <ul class="nav nav-list tree">
-                        <li><a href="monthly.html">Monthly</a></li>
-                        <li><a href="morris.html">Quarterly</a></li>
-                        <li><a href="flot.html">Yearly</a></li>
+                        <li><a href="{{PATH_APP}}statistic/monthly">Monthly</a></li>
+                        <li><a href="{{PATH_APP}}statistic/quaterly">Quarterly</a></li>
+                        <li><a href="{{PATH_APP}}statistic/yearly">Yearly</a></li>
                       </ul>
                     </li>                    
                   </ul>

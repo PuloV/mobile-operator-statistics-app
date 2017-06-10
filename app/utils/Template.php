@@ -14,15 +14,18 @@ class Template {
     }
 
     public static function getAdditionalDataForTemplate($template, $vars){
+        $vars['PATH_APP'] = PATH_APP;
         switch ($template) {
-            case 'header':
 
+            case 'header':
                 $vars['head_menu']  = Template::get('head_menu', array(), false);
                 $vars['left_menu']  = Template::get('left_menu', array(), false);
                 break;
             case 'footer':
             case 'head_menu':
             case 'left_menu':
+            case 'chart_area':
+            case 'chart_area':
                 // nothing for now
                 break;
             
@@ -60,11 +63,18 @@ class Template {
         return array(
             'error_404'     => TEMPLATES . 'errors/404.html',
             'error_500'     => TEMPLATES . 'errors/500.html',
-            'header'        => TEMPLATES . 'main_pages/header.php',
-            'footer'        => TEMPLATES . 'main_pages/footer.php',
-            'head_menu'     => TEMPLATES . 'main_pages/head_menu.php',
-            'left_menu'     => TEMPLATES . 'main_pages/left_menu.php',
-            'main_stats'    => TEMPLATES . 'main_pages/main_stats.php',
+
+            'header'                => TEMPLATES . 'main_pages/header.php',
+            'footer'                => TEMPLATES . 'main_pages/footer.php',
+            'head_menu'             => TEMPLATES . 'main_pages/head_menu.php',
+            'left_menu'             => TEMPLATES . 'main_pages/left_menu.php',
+            'main_stats'            => TEMPLATES . 'main_pages/main_stats.php',
+            'time_period_stats'      => TEMPLATES . 'main_pages/time_period_stats.php',
+
+            
+            'chart_area'    => TEMPLATES . 'stats_charts/chart_area.php',
+            'chart_pie'    => TEMPLATES . 'stats_charts/chart_pie.php',
+            'chart_label_pie'    => TEMPLATES . 'stats_charts/chart_label_pie.php',
         );
 
     }
