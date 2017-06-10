@@ -27,7 +27,7 @@ jQuery(document).ready(function(){
     parsedValue.value = parseInt(item.value);
     return parsedValue;
   })
-  console.log(pieChartData);
+  
   var pieChartContext = $(".pieChart{{scope}}")[0].getContext("2d");
   var genderPieChart = new Chart(pieChartContext).Pie(pieChartData, {
       responsive : true,

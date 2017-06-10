@@ -1,7 +1,7 @@
 {{header}}
 <div id="content">
   <div class="panel chart-title">
-    <h3><span class="fa fa-pie-chart"></span> Monthly</h3>
+    <h3><span class="fa fa-pie-chart"></span> {{frame_title}}</h3>
   </div>
   <div class="col-md-12 padding-5">
     <div class="col-md-3">
@@ -23,7 +23,7 @@
                   <h4>Age Groups</h4>
                 </div>
                 <div class="panel-body">
-                  <div id="pie-chart" style="height:300px;"></div>
+                  {{age_group_chart}}
                 </div>
           </div>  
         </div>
@@ -35,9 +35,7 @@
                     <h4>Gender</h4>
                   </div>
                   <div class="panel-body">
-                      
-                      <canvas class="genderPieChart" ></canvas>
-                      </center>
+                      {{gender_group_chart}}
                 </div>
           </div>  
         </div>

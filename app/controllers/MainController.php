@@ -7,7 +7,7 @@ class MainController{
 	public static function homePage(){
 		
 		$from_date 	= new DateTime('today -1 month');
-		$from_date 	= new DateTime('1990');
+		// $from_date 	= new DateTime('1990');
 		$to_date 	= new DateTime('today');
 
 		$gender_grouped = SqlClient::getRecords(

@@ -19,6 +19,26 @@
     <script src="{{PATH_APP}}frontend/asset/js/bootstrap.min.js"></script>
 
     <!-- plugins -->
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/moment.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/morris.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/raphael.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/jquery.nicescroll.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/fullcalendar.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/jquery.nicescroll.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/jquery.vmap.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/maps/jquery.vmap.world.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/jquery.vmap.sampledata.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/chart.min.js"></script>
+
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/flot/jquery.flot.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/flot/jquery.flot.navigate.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/plugins/flot/jquery.flot.stack.min.js"></script>
+
+
+
+    <!-- plugins -->
     <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/simple-line-icons.css"/>
     <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/animate.min.css"/>

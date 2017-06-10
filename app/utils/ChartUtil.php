@@ -14,11 +14,16 @@ class ChartUtil {
 
         switch ($type) {
             case 'month_respondend_pie':
+            case 'gender_group_chart':
                 $template = 'chart_pie';
                 break;
 
             case 'mobile_operator_chart':
                 $template = 'chart_label_pie';
+                break;
+
+            case 'age_group_chart':
+                $template = 'chart_info_pie';
                 break;
 
             case 'month_respondend_area':
@@ -60,6 +65,7 @@ class ChartUtil {
                 break;
             
             case 'month_respondend_pie':
+            case 'gender_group_chart':
                 $area_data = array_map( 
                     function($entry){
                         $entry_data = array();
@@ -73,6 +79,63 @@ class ChartUtil {
                 );
 
                 $chart_data['pie_data_json'] = json_encode($area_data);
+                break;            
+
+            case 'mobile_operator_chart':
+                $total_users = array_reduce(
+                    $data, 
+                    function($total, $item){
+                        return $total + $item['people'];
+                    },
+                    0
+                );
+
+                $operator_data = array_map( 
+                    function($entry) use ($total_users) {
+                        $entry_data             = array();
+
+                        $people_count           = $entry['people'];
+                        $percent_value          = $people_count * 100 / $total_users;
+                        
+                        $entry_data['value']    = round($percent_value, 2);
+
+                        switch ($entry['mobile_operator']) {
+                            case 'mtel':
+                                $entry_data['label'] = 'M-tel';
+                                break;
+
+                            case 'vivacom':
+                                $entry_data['label'] = 'Vivacom';
+                                break;
+                            
+                            case 'telenor':
+                                $entry_data['label'] = 'Telenor';
+                                break;
+                            
+                            default:
+                                $entry_data['label'] = $entry['mobile_operator'];
+                                break;
+                        }
+
+                        $entry_data['modal_message'] = sprintf(
+                            '%d from %d people are using %s. This is %s percent of all.',
+                            $people_count,
+                            $total_users,
+                            $entry_data['label'],
+                            $entry_data['value']
+                        );
+
+                        return $entry_data;
+                    },
+                    $data
+                );
+                
+                $area_data = array();
+                $area_data['data']          = $operator_data;
+                $area_data['colors']        = array('#FF3835','#515151','#6C76FF');
+
+                $chart_data['pie_data_json'] = json_encode($area_data);
+                $chart_data['modal_header']  = 'Mobile Operator Users';
                 break;
             
             default:
