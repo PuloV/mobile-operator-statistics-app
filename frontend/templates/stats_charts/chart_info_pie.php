@@ -18,7 +18,6 @@ jQuery(document).ready(function(){
     return parsedValue;
   })
   
-  var dataPie = JSON
   $.plot('#infoPieChart{{scope}}', pieChartData, {
       series: {
           pie: {

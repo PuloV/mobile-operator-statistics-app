@@ -145,7 +145,67 @@
                 </div>
           </div>  
         </div>
-    </div>    
+    </div>     
+
+    <div class="col-md-12 padding-5">
+      <div class="col-md-12">
+        <div class="panel">
+           <div class="panel-heading-white panel-heading">
+              <h4>Total Minutes grouped by age for every mobile operator </h4>
+            </div>
+            <div class="panel-body">
+                {{operator_min_grouped_chart}}
+            </div>
+          </div>
+      </div>
+    </div> 
+
+    <div class="col-md-12 padding-5">
+      <div class="col-md-5">
+        <div class="panel">
+           <div class="panel-heading-white panel-heading">
+              <h4>People grouped by age for every mobile operator </h4>
+            </div>
+            <div class="panel-body">
+                {{operator_grouped_chart}}
+            </div>
+          </div>
+      </div>
+      <div class="col-md-7">
+        <div class="panel">
+           <div class="panel-heading-white panel-heading">
+              <h4>Total taxes grouped by age for every mobile operator </h4>
+            </div>
+            <div class="panel-body">
+                {{operator_tax_grouped_chart}}
+            </div>
+          </div>
+      </div>
+    </div>     
+
+    <div class="col-md-12 padding-5">
+      <div class="col-md-5">
+        <div class="panel">
+           <div class="panel-heading-white panel-heading">
+              <h4>Total SMS grouped by age for every mobile operator </h4>
+            </div>
+            <div class="panel-body">
+                {{operator_sms_grouped_chart}}
+            </div>
+          </div>
+      </div>
+      <div class="col-md-7">
+        <div class="panel">
+           <div class="panel-heading-white panel-heading">
+              <h4>Total Mb grouped by age for every mobile operator </h4>
+            </div>
+            <div class="panel-body">
+                {{operator_mb_grouped_chart}}
+            </div>
+          </div>
+      </div>
+    </div> 
+
   <!-- </div> -->
  </div>
 {{footer}}

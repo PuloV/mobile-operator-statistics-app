@@ -28,13 +28,20 @@ class StatisticController{
 
 		$statistics = self::generateStatisticsForFrame($frame);
 		
-		$data['mobile_operator_chart'] 	= ChartUtil::getChart('mobile_operator_chart', $statistics['operator_grouped']);
-		$data['age_group_chart'] 		= ChartUtil::getChart('age_group_chart', $statistics['age_grouped']);
-		$data['gender_group_chart'] 	= ChartUtil::getChart('gender_group_chart', $statistics['gender_grouped']);
-		$data['minutes_chart_graph'] 	= ChartUtil::getChart('minutes_chart_graph', $statistics['age_grouped']);
-		$data['megabytes_chart_graph'] 	= ChartUtil::getChart('megabytes_chart_graph', $statistics['age_grouped']);
-		$data['sms_chart_graph'] 		= ChartUtil::getChart('sms_chart_graph', $statistics['age_grouped']);
-		$data['tax_chart_graph'] 		= ChartUtil::getChart('tax_chart_graph', $statistics['age_grouped']);
+		$data['mobile_operator_chart'] 			= ChartUtil::getChart('mobile_operator_chart', $statistics['operator_grouped']);
+
+		$data['age_group_chart'] 				= ChartUtil::getChart('age_group_chart', $statistics['age_grouped']);
+		$data['gender_group_chart'] 			= ChartUtil::getChart('gender_group_chart', $statistics['gender_grouped']);
+		$data['minutes_chart_graph'] 			= ChartUtil::getChart('minutes_chart_graph', $statistics['age_grouped']);
+		$data['megabytes_chart_graph'] 			= ChartUtil::getChart('megabytes_chart_graph', $statistics['age_grouped']);
+		$data['sms_chart_graph'] 				= ChartUtil::getChart('sms_chart_graph', $statistics['age_grouped']);
+		$data['tax_chart_graph'] 				= ChartUtil::getChart('tax_chart_graph', $statistics['age_grouped']);
+
+		$data['operator_grouped_chart'] 		= ChartUtil::getChart('operator_age_grouped_chart', $statistics['operator_age_grouped']);
+		$data['operator_tax_grouped_chart'] 	= ChartUtil::getChart('operator_tax_grouped_chart', $statistics['operator_age_grouped']);
+		$data['operator_sms_grouped_chart'] 	= ChartUtil::getChart('operator_sms_grouped_chart', $statistics['operator_age_grouped']);
+		$data['operator_mb_grouped_chart'] 		= ChartUtil::getChart('operator_mb_grouped_chart', $statistics['operator_age_grouped']);
+		$data['operator_min_grouped_chart'] 	= ChartUtil::getChart('operator_min_grouped_chart', $statistics['operator_age_grouped']);
 
 		$average_age 			= 0.00;
 		$average_tax_amount 	= 0.00;
@@ -135,11 +142,36 @@ class StatisticController{
 			ORDER BY `age_group`',
 			$from_date->format("Y-m-d 00:00:00"),
 			$to_date->format("Y-m-d 23:59:59")
+		);		
+
+		$operator_age_grouped = SqlClient::getRecords(
+			'SELECT 
+			CASE  
+				WHEN personal_usage.age BETWEEN 16 AND 20 THEN \'16-20\' 
+				WHEN personal_usage.age BETWEEN 20 AND 30 THEN \'20-30\' 
+				WHEN personal_usage.age BETWEEN 30 AND 40 THEN \'30-40\' 
+				WHEN personal_usage.age BETWEEN 40 AND 65 THEN \'40-65\' 
+				WHEN personal_usage.age > 65 THEN \'65+\' 
+				ELSE \'unknown\'
+				END	AS `age_group`  , 
+			COUNT(personal_usage.id) AS people,
+			personal_usage.mobile_operator AS `mobile_operator` , 
+			SUM(personal_usage.megabytes) AS `total_mb`,
+			SUM(personal_usage.sms_count) AS `total_sms`,
+			SUM(personal_usage.minutes) AS `total_mins`,
+			SUM(personal_usage.tax_amount) AS `total_tax`
+			FROM personal_usage			
+			WHERE personal_usage.respondent_date BETWEEN %s AND %s
+			GROUP BY `age_group`, personal_usage.mobile_operator
+			ORDER BY `age_group`',
+			$from_date->format("Y-m-d 00:00:00"),
+			$to_date->format("Y-m-d 23:59:59")
 		);
 
 		$data['gender_grouped'] 		= $gender_grouped;
 		$data['operator_grouped'] 		= $operator_grouped;
 		$data['age_grouped'] 			= $age_grouped;
+		$data['operator_age_grouped'] 	= $operator_age_grouped;
 
 		return $data;
 	}
