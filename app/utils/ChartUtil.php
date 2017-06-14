@@ -283,7 +283,7 @@ class ChartUtil {
 
                     case 'operator_min_grouped_chart':
                         $main_value_key     = 'total_mins';
-                        $header_prefix      = 'Minutes in in the age range';
+                        $header_prefix      = 'Minutes in the age range';
                         break;
                 }
 

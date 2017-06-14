@@ -46,7 +46,7 @@ class Server {
 
 	public function defineGeneralConstants(){		
 		// error_reporting(E_ERROR | E_PARSE);
-		error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+		// error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 		session_start();
 
 		// server settings
@@ -77,6 +77,8 @@ class Server {
 		$router->setBasePath(PATH_APP);
 
 		$router->map('GET|POST', '', 'MainController::homePage', 'MainController::homePage');
+		$router->map('GET|POST', 'auth/register', 'MainController::registerUser', 'MainController::registerUser');
+		$router->map('GET|POST', 'auth/login', 'MainController::userLogin', 'MainController::userLogin');
 		$router->map('GET|POST', 'import/personal_usage/[*:month]', 'ImportController::importPersonalUsage', 'ImportController::importPersonalUsage');
 		$router->map('GET|POST', 'statistic/[*:frame]', 'StatisticController::statisticFrame', 'StatisticController::statisticFrame');
 

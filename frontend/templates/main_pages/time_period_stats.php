@@ -1,7 +1,25 @@
 {{header}}
 <div id="content">
   <div class="panel chart-title">
-    <h3><span class="fa fa-pie-chart"></span> {{frame_title}}</h3>
+    <h3 style="display: inline-block;padding-right: 50px;">
+      <span class="fa fa-pie-chart"></span> {{frame_title}} results from {{from_date}} to {{to_date}}
+    </h3>   
+
+    <span class="event-start-input" style="display: inline-block;">
+      <form type="GET" id='start_date_form' >
+      <input id="start_date" name="start_date" value="{{from_date_value}}" placeholder="Select Start Date" class="edit date" data-format="yyyy-MM-dd" type="text" tabindex='5' />
+      </form>
+    </span>
+    <script type="text/javascript">
+      $('#start_date').datepicker({
+        format: 'yyyy-mm-dd',
+        date: '{{from_date_value}}'
+      }).on('change', function(event) {
+        // event.preventDefault();
+        /* Act on the event */
+        $("#start_date_form").submit();
+      });
+    </script>
   </div>
   <div class="col-md-12 padding-5">
     <div class="col-md-3">

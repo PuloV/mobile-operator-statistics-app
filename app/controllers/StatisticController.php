@@ -4,10 +4,17 @@
 */
 class StatisticController{
 	
-	public static function statisticFrame($frame='month',$start_time = NULL){
+	public static function statisticFrame($frame='month'){
 		$data = array();
+
+		// get data from request 
+		$start_date   	= fRequest::get('start_date', 'string', NULL); 
 		
 		switch ($frame) {
+			case 'weekly':
+				$data['frame_title'] = 'Weekly';
+				break;	
+
 			case 'monthly':
 				$data['frame_title'] = 'Monthly';
 				break;
@@ -26,7 +33,11 @@ class StatisticController{
 				break;
 		}
 
-		$statistics = self::generateStatisticsForFrame($frame);
+		$statistics = self::generateStatisticsForFrame($frame, $start_date);
+
+		$data['from_date_value'] 	= $statistics['from_date_value'];
+		$data['from_date'] 			= $statistics['from_date'];
+		$data['to_date'] 			= $statistics['to_date'];
 		
 		$data['mobile_operator_chart'] 			= ChartUtil::getChart('mobile_operator_chart', $statistics['operator_grouped']);
 
@@ -67,31 +78,71 @@ class StatisticController{
 		echo Template::get('time_period_stats', $data);
 	}
 
-	public static function generateStatisticsForFrame($frame='monthly')	{
+	public static function generateStatisticsForFrame($frame='monthly', $start_date_value = NULL)	{
 		$data = array();
 		
+		if (isset($start_date_value) && $start_date_value != '') {
 
-		switch ($frame) {
-			case 'monthly':
-				$from_date 	= new DateTime('today -1 month');
-				$to_date 	= new DateTime('today');
-				break;
+			$from_date = new DateTime($start_date_value);
 
-			case 'quaterly':
-				$from_date 	= new DateTime('today -3 month');
-				$to_date 	= new DateTime('today');
-				break;
+			switch ($frame) {
+				case 'weekly':
+					$to_date 	= clone $from_date;
+					$to_date->modify('+7 days');
+					break;
+
+				case 'monthly':
+					$to_date 	= clone $from_date;
+					$to_date->modify('+1 month');
+					break;
+
+				case 'quaterly':
+					$to_date 	= clone $from_date;
+					$to_date->modify('+3 month');
+					break;
+					
+				case 'yearly':
+					$to_date 	= clone $from_date;
+					$to_date->modify('+1 year');				
+					break;
 				
-			case 'yearly':
-				$from_date 	= new DateTime('today -1 year');
-				$to_date 	= new DateTime('today');				
-				break;
+				default:
+					$to_date 	= new DateTime('today');
+					break;
+			}
+
+		} else {
 			
-			default:
-				$from_date 	= new DateTime('1990');
-				$to_date 	= new DateTime('today');
-				break;
+			switch ($frame) {
+				case 'weekly':
+					$from_date 	= new DateTime('today -7 days');
+					$to_date 	= new DateTime('today');
+					break;
+				case 'monthly':
+					$from_date 	= new DateTime('today -1 month');
+					$to_date 	= new DateTime('today');
+					break;
+
+				case 'quaterly':
+					$from_date 	= new DateTime('today -3 month');
+					$to_date 	= new DateTime('today');
+					break;
+					
+				case 'yearly':
+					$from_date 	= new DateTime('today -1 year');
+					$to_date 	= new DateTime('today');				
+					break;
+				
+				default:
+					$from_date 	= new DateTime('1990');
+					$to_date 	= new DateTime('today');
+					break;
+			}
 		}
+
+		$data['from_date_value'] 	= $from_date->format("Y-m-d");
+		$data['from_date'] 			= $from_date->format("d.m.Y");
+		$data['to_date'] 			= $to_date->format("d.m.Y");
 
 
 		$gender_grouped = SqlClient::getRecords(

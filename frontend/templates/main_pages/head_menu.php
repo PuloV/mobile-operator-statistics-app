@@ -16,6 +16,8 @@
                   <li class="dropdown avatar-dropdown">
                    <img src="{{PATH_APP}}frontend/asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
+                    <?php if (fAuthorization::checkLoggedIn()) { ?>
+
                      <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
                      <li><a href="#"><span class="fa fa-calendar"></span> My Calendar</a></li>
                      <li role="separator" class="divider"></li>
@@ -26,6 +28,10 @@
                         <li><a href=""><span class="fa fa-power-off "></span></a></li>
                       </ul>
                     </li>
+                    <?php } else { ?>
+                        <li><a href="{{PATH_APP}}auth/login"><span class="fa fa-user"></span> Login</a></li>
+                        <li><a href="{{PATH_APP}}auth/register"><span class="fa fa-lock"></span> Register</a></li>
+                    <?php } ?>
                   </ul>
                 </li>
               </ul>

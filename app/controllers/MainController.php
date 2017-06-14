@@ -41,4 +41,12 @@ class MainController{
 		echo Template::get('main_stats', $data);
 		
 	}
+
+	public static function userLogin()	{
+		echo Template::get('login', array());
+	}	
+
+	public static function registerUser()	{
+		echo Template::get('register', array());
+	}
 }

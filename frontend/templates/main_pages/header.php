@@ -11,12 +11,14 @@
  
     <!-- start: Css -->
     <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/datepicker.css">
 
     
     <!-- start: js -->
     <script src="{{PATH_APP}}frontend/asset/js/jquery.min.js"></script>
     <script src="{{PATH_APP}}frontend/asset/js/jquery.ui.min.js"></script>
     <script src="{{PATH_APP}}frontend/asset/js/bootstrap.min.js"></script>
+    <script src="{{PATH_APP}}frontend/asset/js/datepicker.js"></script>
 
     <!-- plugins -->
     <script src="{{PATH_APP}}frontend/asset/js/plugins/moment.min.js"></script>

@@ -70,15 +70,17 @@ class Template {
             'head_menu'             => TEMPLATES . 'main_pages/head_menu.php',
             'left_menu'             => TEMPLATES . 'main_pages/left_menu.php',
             'main_stats'            => TEMPLATES . 'main_pages/main_stats.php',
-            'time_period_stats'      => TEMPLATES . 'main_pages/time_period_stats.php',
+            'time_period_stats'     => TEMPLATES . 'main_pages/time_period_stats.php',
+            'login'                 => TEMPLATES . 'main_pages/login.php',
+            'register'              => TEMPLATES . 'main_pages/register.php',
 
             
-            'chart_area'    => TEMPLATES . 'stats_charts/chart_area.php',
-            'chart_pie'    => TEMPLATES . 'stats_charts/chart_pie.php',
-            'chart_label_pie'    => TEMPLATES . 'stats_charts/chart_label_pie.php',
-            'chart_info_pie'    => TEMPLATES . 'stats_charts/chart_info_pie.php',
-            'chart_graph'    => TEMPLATES . 'stats_charts/chart_graph.php',
-            'chart_bar'    => TEMPLATES . 'stats_charts/chart_bar.php',
+            'chart_area'            => TEMPLATES . 'stats_charts/chart_area.php',
+            'chart_pie'             => TEMPLATES . 'stats_charts/chart_pie.php',
+            'chart_label_pie'       => TEMPLATES . 'stats_charts/chart_label_pie.php',
+            'chart_info_pie'        => TEMPLATES . 'stats_charts/chart_info_pie.php',
+            'chart_graph'           => TEMPLATES . 'stats_charts/chart_graph.php',
+            'chart_bar'             => TEMPLATES . 'stats_charts/chart_bar.php',
         );
 
     }
