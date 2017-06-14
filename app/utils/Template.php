@@ -6,7 +6,7 @@ class Template {
 
     public static function replaceValue($matches) {
 
-        if (empty(Template::$VARS[$matches[1]])) {
+        if (!isset(Template::$VARS[$matches[1]])) {
             Template::$VARS[$matches[1]] = "{{".$matches[1]."}}";
         }
         return Template::$VARS[$matches[1]];

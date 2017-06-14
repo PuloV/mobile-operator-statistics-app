@@ -128,6 +128,10 @@ class Server {
 			case 'personal_usage':
 				require_once 'app/models/PersonalUsage.php';
 				break;
+				
+			case 'user':
+				require_once 'app/models/User.php';
+				break;
 			
 			default:
 				# code...

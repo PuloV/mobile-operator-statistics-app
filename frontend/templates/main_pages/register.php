@@ -12,30 +12,36 @@
 
   <div class="container">
 
-    <form class="form-signin">
+    <form class="form-signin" method='POST'>
       <div class="panel periodic-login">
           <div class="panel-body text-center">
               <h1 class="atomic-symbol"></h1>
               <p class="atomic-mass">Register</p>
 
               <i class="icons icon-arrow-down"></i>
+              {{message}}
               <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                <input type="text" class="form-text" required>
+                <input type="text" value='{{username}}' name="username" class="form-text" required>
                 <span class="bar"></span>
                 <label>Username</label>
               </div>
               <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                <input type="text" class="form-text" required>
+                <input type="text" value='{{email}}' name="email" class="form-text" required>
                 <span class="bar"></span>
                 <label>Email</label>
               </div>
               <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                <input type="password" class="form-text" required>
+                <input type="password" value='{{password}}' name="password" class="form-text" required>
                 <span class="bar"></span>
                 <label>Password</label>
               </div>
+              <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                <input type="password" value='{{password_repeated}}' name="password_repeated" class="form-text" required>
+                <span class="bar"></span>
+                <label>Repeat Password</label>
+              </div>
               <label class="pull-left">
-              <input type="checkbox" class="icheck pull-left" name="checkbox1"/> &nbsp Agree the terms and policy
+              <input type="checkbox" {{agree_checked}} class="icheck pull-left" name="agree" value='1'/> &nbsp Agree the terms and policy
               </label>
               <input type="submit" class="btn col-md-12" value="SignUp"/>
           </div>

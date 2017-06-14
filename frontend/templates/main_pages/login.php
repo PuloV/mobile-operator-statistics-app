@@ -11,25 +11,26 @@
 
   <div class="container">
 
-    <form class="form-signin">
+    <form class="form-signin" method='POST'>
       <div class="panel periodic-login">
           <div class="panel-body text-center">
               <h1 class="atomic-symbol"></h1>
               <p class="atomic-mass">Login</p>
 
               <i class="icons icon-arrow-down"></i>
+              {{message}}
               <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                <input type="text" class="form-text" required>
+                <input type="text" name="email" value="{{email}}" class="form-text" required>
                 <span class="bar"></span>
-                <label>Username</label>
+                <label>Email</label>
               </div>
               <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                <input type="password" class="form-text" required>
+                <input type="password" name="password" value="{{password}}" class="form-text" required>
                 <span class="bar"></span>
                 <label>Password</label>
               </div>
               <label class="pull-left">
-              <input type="checkbox" class="icheck pull-left" name="checkbox1"/> Remember me
+              <input type="checkbox" class="icheck pull-left" name="remember" value='1' {{remember_checked}}/> Remember me
               </label>
               <input type="submit" class="btn col-md-12" value="SignIn"/>
           </div>
