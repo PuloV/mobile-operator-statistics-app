@@ -6486,3 +6486,14 @@ ul li a:focus {
   }
 
 }
+
+.form-group{
+  height: 40px;
+}
+.form-group .control-label{
+  line-height: 40px;
+}
+
+.datepicker-container{
+  z-index: 999999 !important;
+}

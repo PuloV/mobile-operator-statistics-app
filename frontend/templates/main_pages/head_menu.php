@@ -12,14 +12,21 @@
                 </a>
 
               <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>Not logged in</span></li>
+                <li class="user-name"><span>
+                    <?php if (fAuthorization::checkLoggedIn()) { 
+                      echo Server::getPerson()->getUserName();
+                     } else { ?>
+                      Not logged in
+                    <?php } ?>
+                </span></li>
                   <li class="dropdown avatar-dropdown">
                    <img src="{{PATH_APP}}frontend/asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
                     <?php if (fAuthorization::checkLoggedIn()) { ?>
 
                      <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
-                     <li><a href="#"><span class="fa fa-calendar"></span> My Calendar</a></li>
+                     <li><a href="#"><span class="fa fa-users"></span> Users </a></li>
+                     <li><a href="{{PATH_APP}}statistic/display_statistics_data"><span class="icons  icon-pie-chart"></span> Statistics Data </a></li>
                      <li role="separator" class="divider"></li>
                      <li class="more">
                       <ul>

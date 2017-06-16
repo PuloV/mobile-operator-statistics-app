@@ -80,6 +80,7 @@ class Server {
 		$router->map('GET|POST', 'auth/register', 'MainController::registerUser', 'MainController::registerUser');
 		$router->map('GET|POST', 'auth/login', 'MainController::userLogin', 'MainController::userLogin');
 		$router->map('GET|POST', 'import/personal_usage/[*:month]', 'ImportController::importPersonalUsage', 'ImportController::importPersonalUsage');
+		$router->map('GET|POST', 'statistic/display_statistics_data', 'StatisticController::displayStatisticsData', 'StatisticController::displayStatisticsData');
 		$router->map('GET|POST', 'statistic/[*:frame]', 'StatisticController::statisticFrame', 'StatisticController::statisticFrame');
 
 		$matching = $router->match();
@@ -137,6 +138,13 @@ class Server {
 				# code...
 				break;
 		}
+	}
+
+	public static function getPerson(){
+		$user_email = fAuthorization::getUserToken();
+		self::requireModel('user');
+		$user = new User(array('email'=>$user_email));
+		return $user;
 	}
 
 }

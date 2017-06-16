@@ -5,7 +5,7 @@
       <span class="fa fa-pie-chart"></span> {{frame_title}} results from {{from_date}} to {{to_date}}
     </h3>   
 
-    <span class="event-start-input" style="display: inline-block;">
+    <span class="" style="display: inline-block;">
       <form type="GET" id='start_date_form' >
       <input id="start_date" name="start_date" value="{{from_date_value}}" placeholder="Select Start Date" class="edit date" data-format="yyyy-MM-dd" type="text" tabindex='5' />
       </form>

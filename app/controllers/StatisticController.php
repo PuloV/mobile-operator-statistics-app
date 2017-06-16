@@ -226,4 +226,53 @@ class StatisticController{
 
 		return $data;
 	}
+
+	public static function displayStatisticsData(){
+
+		$date   	= fRequest::get('for_date', 'string', date("Y-m-d")); 
+
+		$data 				= array();
+		$data['for_date'] 	= $date;
+
+		$statistics_data = SqlClient::getRecords( 
+			"SELECT personal_usage.*
+			FROM personal_usage
+			WHERE personal_usage.respondent_date BETWEEN %s AND %s",
+			$date. ' 00:00',
+			$date. ' 23:59'
+		);
+
+		$data['statistics_entries'] = array_reduce(
+			$statistics_data, 
+			function($carry, $statistics_entry){
+				$stats_data = array();
+				
+				$stats_data['name'] 	= $statistics_entry['name'];
+				$stats_data['gender']   = $statistics_entry['gender'] == 'M' ? 'Male' : 'Female'; 
+				$stats_data['age'] 		= $statistics_entry['age'];
+					
+				switch ($statistics_entry['mobile_operator']) {
+					case 'vivacom':
+						$stats_data['operator'] = 'Vivacom';
+						break;
+					case 'telenor':
+						$stats_data['operator'] = 'Telenor';
+						break;
+					case 'mtel':
+						$stats_data['operator'] = 'M-tel';
+						break;
+					default:
+						$stats_data['operator'] = 'Unknown';
+						break;
+				}
+				
+				$stats_data['date'] = $statistics_entry['respondent_date'];
+
+				return $carry.Template::get('statistics_entry',$stats_data);
+			}
+		);
+
+		echo Template::get('statistics_data', $data);
+
+	}
 }

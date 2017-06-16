@@ -12,6 +12,11 @@
     <!-- start: Css -->
     <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/datatables.bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="{{PATH_APP}}frontend/asset/css/plugins/animate.min.css"/>
+    <link href="{{PATH_APP}}frontend/asset/css/style.css" rel="stylesheet">
+    
 
     
     <!-- start: js -->

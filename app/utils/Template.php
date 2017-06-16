@@ -27,6 +27,7 @@ class Template {
             case 'chart_area':
             case 'chart_area':
             case 'chart_bar':
+            case 'statistics_entry':
                 // nothing for now
                 break;
             
@@ -73,6 +74,8 @@ class Template {
             'time_period_stats'     => TEMPLATES . 'main_pages/time_period_stats.php',
             'login'                 => TEMPLATES . 'main_pages/login.php',
             'register'              => TEMPLATES . 'main_pages/register.php',
+            'statistics_data'       => TEMPLATES . 'main_pages/statistics_data.php',
+            'statistics_entry'      => TEMPLATES . 'main_pages/statistics_entry.php',
 
             
             'chart_area'            => TEMPLATES . 'stats_charts/chart_area.php',
