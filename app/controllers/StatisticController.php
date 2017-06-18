@@ -228,6 +228,7 @@ class StatisticController{
 	}
 
 	public static function displayStatisticsData(){
+		fAuthorization::requireLoggedIn();
 
 		$date   	= fRequest::get('for_date', 'string', date("Y-m-d")); 
 
@@ -247,6 +248,7 @@ class StatisticController{
 			function($carry, $statistics_entry){
 				$stats_data = array();
 				
+				$stats_data['id'] 	= $statistics_entry['id'];
 				$stats_data['name'] 	= $statistics_entry['name'];
 				$stats_data['gender']   = $statistics_entry['gender'] == 'M' ? 'Male' : 'Female'; 
 				$stats_data['age'] 		= $statistics_entry['age'];
@@ -273,6 +275,110 @@ class StatisticController{
 		);
 
 		echo Template::get('statistics_data', $data);
+
+	}
+
+	public static function deleteStatisticEntry(){
+		fAuthorization::requireLoggedIn();
+		
+		Server::requireModel('personal_usage'); 
+
+		// get data from request 
+		$id   	= fRequest::get('id', 'integer', NULL);
+		$result = array('success' => 1);
+		try {
+		 	$entry = new PersonalUsage($id);
+		 	$entry->delete();
+		} catch (Exception $e) {
+		 	$result['success'] = 0;
+		 	$result['message'] = $e->getMessage();
+		}
+
+		echo json_encode($result); 
+	}	
+
+	public static function getStatisticEntry(){
+		fAuthorization::requireLoggedIn();
+		
+		Server::requireModel('personal_usage'); 
+
+		// get data from request 
+		$id   	= fRequest::get('id', 'integer', NULL);
+		$result = array('success' => 1);
+		try {
+		 	$entry = new PersonalUsage($id);
+		 	
+		 	$entry_data = array();
+		 	$entry_data['id'] 				= $entry->getId();
+		 	$entry_data['name'] 			= $entry->getName();
+		 	$entry_data['gender'] 			= $entry->getGender();
+		 	$entry_data['age'] 				= $entry->getAge();
+		 	$entry_data['operator'] 		= $entry->getMobileOperator();
+		 	$entry_data['tax'] 				= $entry->getTaxAmount();
+		 	$entry_data['minutes'] 			= $entry->getMinutes();
+		 	$entry_data['sms'] 				= $entry->getSmsCount();
+		 	$entry_data['megabytes'] 		= $entry->getMegabytes();
+		 	$entry_data['respondent_date'] 	= $entry->getRespondentDate()->format('Y-m-d');
+
+		 	$result['entry_data'] = $entry_data;
+
+		} catch (Exception $e) {
+		 	$result['success'] = 0;
+		 	$result['message'] = $e->getMessage();
+		}
+
+		echo json_encode($result); 
+	}
+
+	public function addEditStatisticEntry(){
+
+		fAuthorization::requireLoggedIn();
+		
+		Server::requireModel('personal_usage'); 
+
+		// get data from request 
+		$id   				= fRequest::get('id', 'integer', NULL);
+		$name   			= fRequest::get('name', 'string', NULL);
+		$gender   			= fRequest::get('gender', 'string', NULL);
+		$age				= fRequest::get('age', 'integer', NULL);
+		$mobile_operator   	= fRequest::get('mobile_operator', 'string', NULL);
+		$respondent_date   	= fRequest::get('respondent_date', 'string', NULL);
+		$minutes			= fRequest::get('minutes', 'integer', NULL);
+		$megabytes			= fRequest::get('megabytes', 'integer', NULL);
+		$sms				= fRequest::get('sms', 'integer', NULL);
+		$tax				= fRequest::get('tax', 'float', NULL);
+
+		$result = array('success' => 1);
+
+		try {
+			$entry = new PersonalUsage($id);
+		} catch (Exception $e) {
+			$entry = new PersonalUsage();
+		}
+
+		$entry->setName($name);
+		$entry->setGender($gender);
+		$entry->setAge($age);
+		$entry->setMobileOperator($mobile_operator);
+		$entry->setMinutes($minutes);
+		$entry->setMegabytes($megabytes);
+		$entry->setSmsCount($sms);
+		$entry->setTaxAmount($tax);
+
+		try {
+			$entry->setRespondentDate(new fTimestamp($respondent_date));
+			$entry->store();
+		} catch (Exception $e) {
+			$result['success'] = 0;
+		 	$result['message'] = $e->getMessage();
+		 	$result['message_html'] = Util::createMessage(
+				'error',
+				$e->getMessage()
+			);
+		}
+
+		echo json_encode($result); 
+
 
 	}
 }

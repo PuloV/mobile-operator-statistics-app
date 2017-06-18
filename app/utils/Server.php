@@ -34,9 +34,16 @@ class Server {
 		$this->defineGeneralConstants();
 		$this->requireServerFiles();
 
+
+    	fLoader::best();
+
+		fAuthorization::setLoginPage(PATH_APP.'auth/login');
+
 		try {
 			$this->initializeDatabase();
-			$this->matchAndExecutePath();
+
+			$this->matchAndExecutePath();	
+			
 		} catch (Exception $e) {
 			Util::dump($e->getTraceAsString(), $e->getMessage());
 
@@ -58,6 +65,7 @@ class Server {
 		define('DB_USER', 'root');
 		define('DB_PASS', '');
 		define('DB_HOST', 'localhost');
+
 	}
 
 	public function requireServerFiles(){
@@ -81,6 +89,9 @@ class Server {
 		$router->map('GET|POST', 'auth/login', 'MainController::userLogin', 'MainController::userLogin');
 		$router->map('GET|POST', 'import/personal_usage/[*:month]', 'ImportController::importPersonalUsage', 'ImportController::importPersonalUsage');
 		$router->map('GET|POST', 'statistic/display_statistics_data', 'StatisticController::displayStatisticsData', 'StatisticController::displayStatisticsData');
+		$router->map('GET|POST', 'statistic/delete_statistics_entry', 'StatisticController::deleteStatisticEntry', 'StatisticController::deleteStatisticEntry');
+		$router->map('GET|POST', 'statistic/add_edit_statistics_entry', 'StatisticController::addEditStatisticEntry', 'StatisticController::addEditStatisticEntry');
+		$router->map('GET|POST', 'statistic/get_statistics_entry', 'StatisticController::getStatisticEntry', 'StatisticController::getStatisticEntry');
 		$router->map('GET|POST', 'statistic/[*:frame]', 'StatisticController::statisticFrame', 'StatisticController::statisticFrame');
 
 		$matching = $router->match();
@@ -111,8 +122,6 @@ class Server {
 	}
 
 	public function initializeDatabase(){
-
-    	fLoader::best();
 		
 		$mysql_db = new fDatabase('mysql', DB_NAME, DB_USER, DB_PASS, DB_HOST);
 

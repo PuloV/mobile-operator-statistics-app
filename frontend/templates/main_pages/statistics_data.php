@@ -11,8 +11,11 @@
         <h4 class="modal-title">Add Entry</h4>
       </div>
       <div class="modal-body">
-        <form class="" style="min-height:30%;max-height:50%;overflow-x:auto;">
+        <form id="statisticEntryForm" style="min-height:30%;max-height:50%;overflow-x:auto;">
           
+          <input type="hidden" value="" id='id' name="id" />
+          <div id="error_messages"></div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label text-right" for="name">Name</label>
             <div class="col-sm-10">
@@ -87,7 +90,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-primary saveEntryData">Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -145,6 +148,21 @@
 
             $('#add_statistic_data').on('click', function(event) {
               event.preventDefault();
+
+              $("#modalAddEditStatisticsData .modal-title").text('Add Entry');
+              $("#modalAddEditStatisticsData #error_messages").html('');
+
+              $("#modalAddEditStatisticsData #id").val('');
+              $("#modalAddEditStatisticsData #name").val('');
+              $("#modalAddEditStatisticsData #gender").val('');
+              $("#modalAddEditStatisticsData #age").val('');
+              $("#modalAddEditStatisticsData #mobile_operator").val('');
+              $("#modalAddEditStatisticsData #respondent_date").val('');
+              $("#modalAddEditStatisticsData #minutes").val('');
+              $("#modalAddEditStatisticsData #megabytes").val('');
+              $("#modalAddEditStatisticsData #sms").val('');
+              $("#modalAddEditStatisticsData #tax").val('');
+
               $('#modalAddEditStatisticsData').modal('show')
             });
             
@@ -184,6 +202,85 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('#datatable').DataTable();
+
+    $(".editEntry").on('click', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var id =  $(this).attr('data-id');
+
+      $.ajax({
+        type: 'post',
+        url: '{{PATH_APP}}statistic/get_statistics_entry',
+        data: {
+          id: id,
+        },
+        dataType: 'json'
+      }).done(function(data){
+        console.log(data)
+        if(data.success == 1){
+          var entry_data = data.entry_data;
+
+          $("#modalAddEditStatisticsData .modal-title").text('Edit Entry');
+          $("#modalAddEditStatisticsData #error_messages").html('');
+
+          $("#modalAddEditStatisticsData #id").val(entry_data.id);
+          $("#modalAddEditStatisticsData #name").val(entry_data.name);
+          $("#modalAddEditStatisticsData #gender").val(entry_data.gender);
+          $("#modalAddEditStatisticsData #age").val(entry_data.age);
+          $("#modalAddEditStatisticsData #mobile_operator").val(entry_data.operator);
+          $("#modalAddEditStatisticsData #respondent_date").val(entry_data.respondent_date);
+          $("#modalAddEditStatisticsData #minutes").val(entry_data.minutes);
+          $("#modalAddEditStatisticsData #megabytes").val(entry_data.megabytes);
+          $("#modalAddEditStatisticsData #sms").val(entry_data.sms);
+          $("#modalAddEditStatisticsData #tax").val(entry_data.tax);
+
+          $("#modalAddEditStatisticsData").modal("show");
+        } else {
+          alert(data.message);
+        }
+      });
+    });
+
+
+    $(".deleteEntry").on('click', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var id =  $(this).attr('data-id');
+
+      $.ajax({
+        type: 'post',
+        url: '{{PATH_APP}}statistic/delete_statistics_entry',
+        data: {
+          id: id,
+        },
+        dataType: 'json'
+      }).done(function(data){
+        if(data.success == 1){
+          $("#entry"+id).remove();
+        } else {
+          alert(data.message);
+        }
+      });
+    });
+
+    $(".saveEntryData").on('click', function(event) {
+      event.preventDefault();
+
+      $.ajax({
+        type: 'post',
+        url: '{{PATH_APP}}statistic/add_edit_statistics_entry',
+        data: $("#statisticEntryForm").serialize(),
+        dataType: 'json'
+      }).done(function(data){
+        if(data.success == 1){
+          location.reload();
+        } else {
+          $("#modalAddEditStatisticsData #error_messages").html(data.message_html);
+        }
+      });
+    });
+
+
   });
 </script>
 <!-- end: Javascript -->
