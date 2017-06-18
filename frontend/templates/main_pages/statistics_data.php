@@ -179,7 +179,9 @@
               <th>Age</th>
               <th>Mobile Operator</th>
               <th>Date</th>
+              <?php if(Server::getPerson()->isAdmin()) { ?>
               <th>Actions</th>
+              <?php } ?>
             </tr>
           </thead>
           <tbody>

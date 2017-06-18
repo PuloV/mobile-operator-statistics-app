@@ -76,6 +76,8 @@ class Template {
             'register'              => TEMPLATES . 'main_pages/register.php',
             'statistics_data'       => TEMPLATES . 'main_pages/statistics_data.php',
             'statistics_entry'      => TEMPLATES . 'main_pages/statistics_entry.php',
+            'user_entry'            => TEMPLATES . 'main_pages/user_entry.php',
+            'users'                 => TEMPLATES . 'main_pages/users.php',
 
             
             'chart_area'            => TEMPLATES . 'stats_charts/chart_area.php',

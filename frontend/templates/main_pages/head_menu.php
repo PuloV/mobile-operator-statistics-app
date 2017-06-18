@@ -23,18 +23,12 @@
                    <img src="{{PATH_APP}}frontend/asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
                     <?php if (fAuthorization::checkLoggedIn()) { ?>
-
-                     <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
-                     <li><a href="#"><span class="fa fa-users"></span> Users </a></li>
+                      <?php if(Server::getPerson()->isAdmin()) { ?>
+                         <li><a href="{{PATH_APP}}auth/display_users"><span class="fa fa-users"></span> Users </a></li>
+                      <?php } ?>
                      <li><a href="{{PATH_APP}}statistic/display_statistics_data"><span class="icons  icon-pie-chart"></span> Statistics Data </a></li>
-                     <li role="separator" class="divider"></li>
-                     <li class="more">
-                      <ul>
-                        <li><a href=""><span class="fa fa-cogs"></span></a></li>
-                        <li><a href=""><span class="fa fa-lock"></span></a></li>
-                        <li><a href=""><span class="fa fa-power-off "></span></a></li>
-                      </ul>
-                    </li>
+                     <li><a href="{{PATH_APP}}auth/logout"><span class="fa fa-power-off "></span> Logout</a></li>
+                     
                     <?php } else { ?>
                         <li><a href="{{PATH_APP}}auth/login"><span class="fa fa-user"></span> Login</a></li>
                         <li><a href="{{PATH_APP}}auth/register"><span class="fa fa-lock"></span> Register</a></li>

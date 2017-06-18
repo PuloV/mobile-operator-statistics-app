@@ -192,4 +192,95 @@ class MainController{
 		}
 		echo Template::get('register', $data);
 	}
+
+	public static function userLogout()	{
+		fSession::destroy();
+		fAuthorization::destroyUserInfo();
+
+		fURL::redirect(PATH_APP);
+	}
+
+	public static function displayUsers(){
+		fAuthorization::requireLoggedIn();
+
+
+		$data 				= array();
+
+		$users = SqlClient::getRecords( 
+			"SELECT users.*
+			FROM users"
+		);
+
+		$data['users_entries'] = array_reduce(
+			$users, 
+			function($carry, $user_entry){
+				$user_data = array();
+				
+				$user_data['id'] 				= $user_entry['id'];
+				$user_data['user_name']			= $user_entry['user_name'];
+				$user_data['email'] 			= $user_entry['email'];
+				$user_data['selected_user'] 	= $user_entry['role'] == 'user' ? 'selected' : '';
+				$user_data['selected_admin'] 	= $user_entry['role'] == 'admin' ? 'selected' : '';				
+
+				return $carry.Template::get('user_entry',$user_data);
+			}
+		);
+
+		echo Template::get('users', $data);
+
+	}
+
+	public function deleteUser(){
+		fAuthorization::requireLoggedIn();
+		
+		Server::requireModel('user'); 
+
+		// get data from request 
+		$id   	= fRequest::get('id', 'integer', NULL);
+		$result = array('success' => 1);
+		try {
+			if ($id == Server::getPerson()->getId()) {
+				throw new Exception("You cannot delete your account !", 1);
+			}
+
+		 	$entry = new User($id);
+		 	$entry->delete();
+		} catch (Exception $e) {
+		 	$result['success'] = 0;
+		 	$result['message'] = $e->getMessage();
+		 	$result['message_html'] = Util::createMessage(
+				'error',
+				$e->getMessage()
+			);
+		}
+
+		echo json_encode($result); 
+	}	
+
+	public function editUser(){
+		fAuthorization::requireLoggedIn();
+		
+		Server::requireModel('user'); 
+
+		// get data from request 
+		$id   	= fRequest::get('id', 'integer', NULL);
+		$role   = fRequest::get('role', 'string', NULL);
+		$result = array('success' => 1);
+		try {
+
+		 	$entry = new User($id);
+		 	$entry->setRole($role);
+		 	$entry->store();
+
+		} catch (Exception $e) {
+		 	$result['success'] = 0;
+		 	$result['message'] = $e->getMessage();
+		 	$result['message_html'] = Util::createMessage(
+				'error',
+				$e->getMessage()
+			);
+		}
+
+		echo json_encode($result); 
+	}
 }

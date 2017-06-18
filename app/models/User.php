@@ -32,6 +32,10 @@ class User extends fActiveRecord {
 
 		return fCryptography::hashPassword($pass);
 	}
+
+	public function isAdmin(){
+		return $this->getRole() == 'admin';
+	}
 }
 
 if (!fORM::isClassMappedToTable('User')) fORM::mapClassToTable('User', 'users');

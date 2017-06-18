@@ -85,9 +85,16 @@ class Server {
 		$router->setBasePath(PATH_APP);
 
 		$router->map('GET|POST', '', 'MainController::homePage', 'MainController::homePage');
+
 		$router->map('GET|POST', 'auth/register', 'MainController::registerUser', 'MainController::registerUser');
 		$router->map('GET|POST', 'auth/login', 'MainController::userLogin', 'MainController::userLogin');
+		$router->map('GET|POST', 'auth/logout', 'MainController::userLogout', 'MainController::userLogout');
+		$router->map('GET|POST', 'auth/display_users', 'MainController::displayUsers', 'MainController::displayUsers');
+		$router->map('GET|POST', 'auth/delete_user', 'MainController::deleteUser', 'MainController::deleteUser');
+		$router->map('GET|POST', 'auth/edit_user', 'MainController::editUser', 'MainController::editUser');
+
 		$router->map('GET|POST', 'import/personal_usage/[*:month]', 'ImportController::importPersonalUsage', 'ImportController::importPersonalUsage');
+		
 		$router->map('GET|POST', 'statistic/display_statistics_data', 'StatisticController::displayStatisticsData', 'StatisticController::displayStatisticsData');
 		$router->map('GET|POST', 'statistic/delete_statistics_entry', 'StatisticController::deleteStatisticEntry', 'StatisticController::deleteStatisticEntry');
 		$router->map('GET|POST', 'statistic/add_edit_statistics_entry', 'StatisticController::addEditStatisticEntry', 'StatisticController::addEditStatisticEntry');
