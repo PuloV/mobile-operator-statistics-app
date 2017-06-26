@@ -7,7 +7,7 @@
                 <span class="middle"></span>
                 <span class="bottom"></span>
               </div>
-                <a href="index.html" class="navbar-brand"> 
+                <a href="{{PATH_APP}}" class="navbar-brand"> 
                  <b>Mobile Operator Usage Statistics</b>
                 </a>
 
